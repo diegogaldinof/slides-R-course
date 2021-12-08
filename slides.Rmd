@@ -1,0 +1,88 @@
+---
+title: "Zero to hero: presentation in R"
+author: 
+  - "Diego Galdino França"
+output:
+  xaringan::moon_reader:
+    seal: false
+    css: css/custom-en.css
+    lib_dir: libs
+    nature:
+      slideNumberFormat: "%current%"
+      highlightStyle: tango
+      highlightLines: true
+      ratio: 16:9
+      countIncrementalSlides: false
+---
+  
+```{r setup, include=FALSE, eval=TRUE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+  eval = FALSE,
+  fig.align = "center",
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+```{r xaringanExtra, include=FALSE, eval=TRUE}
+xaringanExtra::use_tile_view()
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>"),
+  rmarkdown::html_dependency_font_awesome()
+)
+xaringanExtra::use_extra_styles(hover_code_line = TRUE,
+                                mute_unhighlighted_code = FALSE)
+xaringanExtra::use_broadcast()
+```
+
+```{r packages, include=FALSE, eval=TRUE}
+library(tidyverse)
+library(gtsummary)
+library(emo)
+```
+
+
+class: slide-title
+
+---
+
+R Markdown
+
+.pull-left[
+
+Plain text
+
+Press .keyboard[Return] twice
+
+to start a new paragraph
+
+\*italics\* and \_italics\_
+
+\*\*bold\*\* and \_\_bold\_\_
+
+\-\-strikethrough\-\-
+
+]
+
+.pull-right[
+
+Plain text
+
+Yes! I pressed .keyboard[Return]
+
+and it worked!
+
+*italics* and _italics_
+
+**bold** and __bold__
+
+--strikethrough--
+
+
+]
+
+
+
