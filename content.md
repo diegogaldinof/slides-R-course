@@ -1,3 +1,4 @@
+
 https://r-ladies-sao-paulo.github.io/xaringan/slides.html#20
 
 https://yongfu.name/slides/xaringan/#1
@@ -17,6 +18,19 @@ Apresetnação precisa ser simples, igual do Dalton. Não precisa ensiar tudo pa
 
 Introduzir R markdown (o que é, quais as possbilidades)
 
+- Definir o que é R markdown
+
+- Dizer para que serve
+
+- Quais são as possbilidades do R Markdown (aquela figura da Bia); explicar o que dá para fazer com o R markdown
+
+- Vantagens do R markdown (slide da Bia)
+
+- Dizer que, para fazer slides com o xaringan, precisamos aprender sobre R Markdown
+
+
+
+
 Dizer que os slides são baseados em R markdown
 
 Introduzir R markdown/markdown linguagem
@@ -24,9 +38,11 @@ Introduzir R markdown/markdown linguagem
   Passar algumas funcionalidades (headings, paragrafo, lista, lista enumerada, 
   refs de heading, imagem, link, code chunk, citacao (barra lateral))
   
+  Pacote remedy (addins para Rmarkdown)
+  
   Passar materiais de ref para as pessoas lerem
   
-Dizer que slides no R são feitos pelo pacote xaringan
+Dizer que slides no R podem ser feitos por varios pacotes, mas vamos usar o pacote xaringan
 
 Explicar o xaringan e a biblioteca JS (remark) que o xaringan é baseado
 
@@ -42,9 +58,9 @@ Como delimitar slides e slides incrementais
 
 Como colocar opções globais de chunk
 
-Como adicionar imagens com knitr::include...
+Como adicionar imagens com knitr::include... (ou html tag, ou md tag)
 
-Como modificar imagens usando knitr opcoes (out.width)
+Como modificar imagens usando knitr opcoes (out.width), como posicionar imagens
 
 Como adicionar tabelas
 

@@ -18,10 +18,11 @@ output:
 ```{r setup, include=FALSE, eval=TRUE}
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(
-  eval = FALSE,
+  eval = TRUE,
   fig.align = "center",
   message = FALSE,
-  warning = FALSE
+  warning = FALSE,
+  echo = FALSE
 )
 ```
 
@@ -36,6 +37,7 @@ htmltools::tagList(
 xaringanExtra::use_extra_styles(hover_code_line = TRUE,
                                 mute_unhighlighted_code = FALSE)
 xaringanExtra::use_broadcast()
+xaringanExtra::use_freezeframe()
 ```
 
 ```{r packages, include=FALSE, eval=TRUE}
@@ -49,40 +51,388 @@ class: slide-title
 
 ---
 
-R Markdown
+
+```{r echo=FALSE, eval = TRUE, out.width="70%", fig.align='center'}
+knitr::include_graphics("https://beatrizmilz.github.io/slidesR/rmarkdown/img/rmarkdown_wizards.png")
+```
+
+> R Markdown is a powerful tool for combining analysis and reporting into the same document ([XIE et al., 2021](https://bookdown.org/yihui/rmarkdown-cookbook/)).
+
+
+
+---
+
+## What can we do with R Markdown?
+
+```{r echo=FALSE, eval = TRUE, out.width="40%", fig.align='center'}
+knitr::include_graphics("https://beatrizmilz.github.io/aMostra-IME-2019-Xaringan/img/markdown.png")
+```
+
+.footnote[
+I really recommend you to take a look at the [R Markdown book](https://bookdown.org/yihui/rmarkdown/) and the [R Markdown gallery](https://rmarkdown.rstudio.com/gallery.html) to see all the possibilities.
+]
+
+
+---
+
+## Open a R Markdown file
+
+In your RStudio, `File` → `New File` → `R Markdown`.
+
+After selecting the output format (HTML, PDF, etc), a document will be created.
+
+
+---
+
+```{r}
+knitr::include_graphics("img/open-rmarkdown.gif")
+```
+
+
+
+
+---
+
+
+### R Markdown structure
+
+In R Markdown files, we have two main structures:
+
+- the YAML: delimited by `---` in the beginning of the document. Metadata responsible for important settings of the document (output format, title, output details, etc).
+
+- the body: all the information below the YAML.
+
+---
+
+## Markdown syntax
+
 
 .pull-left[
 
+#### How we write
+
 Plain text
 
-Press .keyboard[Return] twice
+End a line with two spaces (2x .keyboard[Return]) to start a new paragraph.
 
-to start a new paragraph
+\*italics\* or \_italics\_
 
-\*italics\* and \_italics\_
+\*\*bold\*\* or \_\_bold\_\_
 
-\*\*bold\*\* and \_\_bold\_\_
+\~\~strikethrough\~\~
 
-\-\-strikethrough\-\-
 
 ]
 
 .pull-right[
 
+#### How it translates
+
 Plain text
 
-Yes! I pressed .keyboard[Return]
+End a line with two spaces (2x .keyboard[Return]) to start a new paragraph.
 
-and it worked!
+*italics* or _italics_
 
-*italics* and _italics_
+**bold** or __bold__
 
-**bold** and __bold__
+~~strikethrough~~
 
---strikethrough--
+]
+
+
+---
+
+
+.pull-left[
+
+\# Heading 1
+
+\#\# Heading 2
+
+...
+
+\#\#\#\#\#\# Heading 6
+
+\[This is a link!\](URL)
+
+]
+
+.pull-right[
+
+# Heading 1
+
+## Heading 2
+
+...
+
+###### Heading 6
+
+[This is a link!](URL)
+
+]
+
+
+---
+
+.pull-left[
+
+\- Unordered list
+
+\- Item 2
+
+  \- item 2a (indent 1 tab)
+  
+  \- item 2b (indent 1 tab)
+
+1. Ordered list
+
+2. item 2
+
+Put words between "\`" to write in code style
+
+\> Block quotes
 
 
 ]
+
+.pull-right[
+
+- Unordered list
+
+- Item 2
+
+  - item 2a (indent 1 tab)
+  
+  - item 2b (indent 1 tab)
+
+1. Ordered list
+
+2. item 2
+
+
+`This is code style!`
+
+> Block quotes
+
+]
+
+---
+
+### How to insert code chunks?
+
+To add a code chunk in your document:
+
+- press .keyboard[Ctrl] + .keyboard[Alt] + .keyboard[I]
+
+- click on the `C+` button in the right corner of the document
+
+
+---
+
+```{r}
+knitr::include_graphics("img/code-chunk.gif")
+```
+
+
+---
+
+### How to add an image?
+
+- `knitr::include_graphics` function (inside the code chunk):
+
+  - In this function, you specify a path to the image and the function plots it.
+  
+  - E.g.: `knitr::include_graphics(path = "img/awesome-plot.png")`
+  
+  - Allows us to better adjust the image (size, position, etc).
+  
+
+--
+  
+- `![]("path-to-the-image")`
+
+  - This is the markdown syntax to plot images.
+  
+  - E.g.: `![]("https://www.google.com/")`
+  
+  - Resizing and repositioning is more difficult
+
+.footnote[
+
+Explore more about images in [Tips and tricks for working with images and figures in R Markdown documents](http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/).
+
+]
+
+
+---
+
+### `remedy`
+
+[`remedy`](https://thinkr-open.github.io/remedy/) is a package with several *addins* that help us with R Markdown.
+
+```{r echo = TRUE, eval = FALSE}
+install.packages("remedy")
+library(remedy)
+```
+
+After the instalation, all the package addins will be added in the button `Addins`.
+
+---
+
+
+```{r}
+knitr::include_graphics("img/addins.gif")
+```
+
+
+
+---
+
+### References
+
+I've covered the basics of R Markdown, but there are many other interesting things that can be learned.
+
+If you want to dive deeper in this tool, here are good sources:
+
+- [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+
+- [R Markdown course from RStudio](https://rmarkdown.rstudio.com/lesson-1.html)
+
+- [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/)
+
+- [Pimp my RMD: a few tips for R Markdown](https://holtzy.github.io/Pimp-my-rmd/)
+
+- [R Markdown gallery](https://rmarkdown.rstudio.com/gallery.html)
+
+
+
+---
+
+## Presentation in R
+
+There are several options to create slides in R:
+
+- [ioslides presentation](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html)
+
+- [Slidy presentation](https://bookdown.org/yihui/rmarkdown/slidy-presentation.html)
+
+- [Beamer presentation](https://bookdown.org/yihui/rmarkdown/beamer-presentation.html)
+
+- [PowerPoint presentation](https://bookdown.org/yihui/rmarkdown/powerpoint-presentation.html)
+
+- [reveal.js presentation](https://bookdown.org/yihui/rmarkdown/revealjs.html)
+
+- [xaringan presentation](https://bookdown.org/yihui/rmarkdown/xaringan.html)
+
+
+---
+
+background-image: url("img/sharingan-naruto.png")
+background-position: center
+background-size: contain, 50% 50%, cover
+
+---
+
+
+## `xaringan` package
+
+```{r eval = FALSE, echo = TRUE}
+install.packages("xaringan")
+library(xaringan)
+```
+
+
+Allows us to create __ninja__ presentations with R Markdown.
+
+Uses the `remark.js` library.
+
+Creates HTML slides.
+
+Helps with reproducibility.
+
+Easy integration between codes, outputs and text.
+
+You can create a webpage with your slides or save it in a PDF.
+
+
+
+---
+
+### How does xaringan work?
+
+The `xaringan` package convert the R Markdown file into a HTML file and uses CSS to style and the JavaScript library `remark.js` to generate the presentation.
+
+```{r out.width="60%"}
+knitr::include_graphics("https://r-ladies-sao-paulo.github.io/xaringan/img/html-css-javascript.jpg")
+```
+
+
+
+---
+
+### Creating a xaringan presentation document
+
+The process is similar to the R Markdown, but we will choose the option `From template` → `Ninja Presentation`
+
+gif!
+
+
+---
+
+### How to create slides?
+
+In xaringan, slides are delimited by `---`. For example:
+
+`---`
+
+This is my first slide!
+
+`---`
+
+This is my second slide!
+
+`---`
+
+This is my third slide!
+
+---
+
+
+To create incremental slides, use `--`. For example:
+
+--
+
+```
+--
+This
+--
+is
+--
+xaringan!
+
+```
+
+--
+
+This
+--
+
+is
+--
+
+xaringan!
+
+
+
+---
+
+### How to add content?
+
+`xaringan` uses R Markdown, so anything that works in R Markdown works in `xaringan`.
+
+This includes: text, markdown syntax, code chunks, images, links, etc.
+
 
 
 
