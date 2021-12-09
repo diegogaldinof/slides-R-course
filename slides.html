@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Zero to hero: presentation in R</title>
+    <title>How to build a presentation in R with xaringan</title>
     <meta charset="utf-8" />
     <meta name="author" content="Diego Galdino França" />
+    <meta name="date" content="2021-12-09" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view/tile-view.js"></script>
@@ -27,6 +28,11 @@
   <body>
     <textarea id="source">
 
+
+background-image: url("img/title-slide.png")
+background-position: center
+background-size: contain, 50% 50%, cover
+
   
 
 
@@ -35,7 +41,23 @@
 
 
 
-class: slide-title
+---
+
+
+## Agenda
+
+.pull-left[
+
+&lt;img src="https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+&lt;img src="https://user-images.githubusercontent.com/163582/45438104-ea200600-b67b-11e8-80fa-d9f2a99a03b0.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
 
 ---
 
@@ -72,6 +94,17 @@ After selecting the output format (HTML, PDF, etc), a document will be created.
 
 
 
+
+---
+
+
+### R Markdown structure
+
+In R Markdown files, we have two main structures:
+
+- the YAML: delimited by `---` in the beginning of the document. Metadata responsible for important settings of the document (output format, title, output details, etc).
+
+- the body: all the information below the YAML.
 
 ---
 
@@ -190,7 +223,7 @@ Put words between "\`" to write in code style
 
 ---
 
-### How to insert code chunks
+### How to insert code chunks?
 
 To add a code chunk in your document:
 
@@ -206,7 +239,8 @@ To add a code chunk in your document:
 
 ---
 
-### How to add an image
+
+### How to add an image?
 
 - `knitr::include_graphics` function (inside the code chunk):
 
@@ -232,6 +266,16 @@ To add a code chunk in your document:
 Explore more about images in [Tips and tricks for working with images and figures in R Markdown documents](http://zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/).
 
 ]
+
+
+---
+
+
+### How to render the R Markdown?
+
+The easiest way to render the document is by clicking on the `Knit` button.
+
+&lt;img src="img/knit.png" width="1821" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -277,9 +321,15 @@ If you want to dive deeper in this tool, here are good sources:
 
 ---
 
-## Presentation in R
+background-image: url("img/inverse-1.png")
+background-position: center
+background-size: contain, 50% 50%, cover
+
+---
 
 There are several options to create slides in R:
+
+&lt;br&gt;
 
 - [ioslides presentation](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html)
 
@@ -314,21 +364,17 @@ library(xaringan)
 
 Allows us to create __ninja__ presentations with R Markdown.
 
-Uses the `remark.js` library.
-
-Creates HTML slides.
-
 Helps with reproducibility.
 
 Easy integration between codes, outputs and text.
 
-You can create a webpage with your slides or save it in a PDF.
+You can save your presentation in different formats (e.g., HTML, PDF).
 
 
 
 ---
 
-### How xaringan works?
+### How does xaringan work?
 
 The `xaringan` package convert the R Markdown file into a HTML file and uses CSS to style and the JavaScript library `remark.js` to generate the presentation.
 
@@ -338,20 +384,23 @@ The `xaringan` package convert the R Markdown file into a HTML file and uses CSS
 
 ---
 
-### Creating a xaringan presentation
+### Creating a xaringan document
 
-The process is similar to the R Markdown, but we will choose the option `From template` → `Ninja Presentation`
+The process is similar to the R Markdown, but we will choose the option `From template` → `Ninja Presentation`.
 
-gif!
+
+---
+
+
+&lt;img src="img/ninja-presentation.gif" width="100%" style="display: block; margin: auto;" /&gt;
+
 
 
 ---
 
 ### How to create slides?
 
-In xaringan, slides are delimited by `---`. For example:
-
-`---`
+In `xaringan`, slides are delimited by `---`. For example:
 
 This is my first slide!
 
@@ -389,9 +438,652 @@ is
 --
 
 xaringan!
+
+
+
+---
+
+### How to add content?
+
+`xaringan` uses R Markdown, so anything that works in R Markdown works in `xaringan`.
+
+This includes: text, markdown syntax, code chunks, images, links, etc.
+
+---
+
+### Examples: code output
+
+Here, I ran a linear regression model with the `lm` function and asked R to plot the output in a tidy format.
+
+
+```r
+library(broom)
+fit &lt;- lm(mpg ~ hp, data = mtcars)
+broom::tidy(fit)
+```
+
+```
+## # A tibble: 2 x 5
+##   term        estimate std.error statistic  p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)  30.1       1.63       18.4  6.64e-18
+## 2 hp           -0.0682    0.0101     -6.74 1.79e- 7
+```
+
+
+---
+
+### Examples: table
+
+We can use different packages to build and plot our tables in the slides. But the output have to be in HTML.
+
+Here, I will use the package `gtsummary` to build a summary table, which generates a HTML table.
+
+.left-code[
+
+```r
+library(gtsummary)
+dataset &lt;- trial
+gtsummary::tbl_summary(trial, by = trt, include = c(age, stage))
+```
+
+]
+
+.right-code[
+
+<div id="gwwawasjch" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#gwwawasjch .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gwwawasjch .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gwwawasjch .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gwwawasjch .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gwwawasjch .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gwwawasjch .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gwwawasjch .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gwwawasjch .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gwwawasjch .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gwwawasjch .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gwwawasjch .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gwwawasjch .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gwwawasjch .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gwwawasjch .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gwwawasjch .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gwwawasjch .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gwwawasjch .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#gwwawasjch .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gwwawasjch .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#gwwawasjch .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gwwawasjch .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gwwawasjch .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gwwawasjch .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gwwawasjch .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gwwawasjch .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#gwwawasjch .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gwwawasjch .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#gwwawasjch .gt_left {
+  text-align: left;
+}
+
+#gwwawasjch .gt_center {
+  text-align: center;
+}
+
+#gwwawasjch .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gwwawasjch .gt_font_normal {
+  font-weight: normal;
+}
+
+#gwwawasjch .gt_font_bold {
+  font-weight: bold;
+}
+
+#gwwawasjch .gt_font_italic {
+  font-style: italic;
+}
+
+#gwwawasjch .gt_super {
+  font-size: 65%;
+}
+
+#gwwawasjch .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Characteristic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Drug A</strong>, N = 98<sup class="gt_footnote_marks">1</sup></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Drug B</strong>, N = 102<sup class="gt_footnote_marks">1</sup></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Age</td>
+<td class="gt_row gt_center">46 (37, 59)</td>
+<td class="gt_row gt_center">48 (39, 56)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Unknown</td>
+<td class="gt_row gt_center">7</td>
+<td class="gt_row gt_center">4</td></tr>
+    <tr><td class="gt_row gt_left">T Stage</td>
+<td class="gt_row gt_center"></td>
+<td class="gt_row gt_center"></td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">T1</td>
+<td class="gt_row gt_center">28 (29%)</td>
+<td class="gt_row gt_center">25 (25%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">T2</td>
+<td class="gt_row gt_center">25 (26%)</td>
+<td class="gt_row gt_center">29 (28%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">T3</td>
+<td class="gt_row gt_center">22 (22%)</td>
+<td class="gt_row gt_center">21 (21%)</td></tr>
+    <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">T4</td>
+<td class="gt_row gt_center">23 (23%)</td>
+<td class="gt_row gt_center">27 (26%)</td></tr>
+  </tbody>
+  
+  <tfoot>
+    <tr class="gt_footnotes">
+      <td colspan="3">
+        <p class="gt_footnote">
+          <sup class="gt_footnote_marks">
+            <em>1</em>
+          </sup>
+           
+          Median (IQR); n (%)
+          <br />
+        </p>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+
+]
+
+---
+
+### Examples: plot
+
+Let's use the package `ggplot2` to create nice data visualization.
+
+.left-code[
+
+
+```r
+library(ggplot2)
+dataset &lt;- iris
+ggplot(dataset) + 
+  aes(Sepal.Length, 
+      Sepal.Width, 
+      color = Species) + 
+  geom_point() +
+  theme_bw(base_size = 12)
+```
+
+]
+
+.right-code[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+---
+
+## YAML metadata
+
+As in R Markdown, `xaringan` presentations have the YAML metadata at the top of the document.
+
+The indentation is very important, be careful!
+
+```
+title: "Your title"
+subtitle: "Your subtitle"
+author: "Your name"
+institute: "Your instituition"
+date: "2021.12.09"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+```
+
+.footnote[
+To know other YAML settings, please [access the YAML Fieldguide](https://cran.r-project.org/web/packages/ymlthis/vignettes/yaml-fieldguide.html).
+]
+
+
+---
+
+#### Output
+
+```
+output:
+  xaringan::moon_reader:
+      lib_dir: libs
+```
+
+`moon_reader` is the output format of `xaringan.` We can set new configurations to the output.
+
+- `lib_dir: libs`: saves all the JS libraries in this folder.
+
+- `seal`: asks if we want to create a title slide from YAML information. Default is `true`.
+
+- `css`: indicates the built-in and/or custom css files used for theming.
+
+---
+
+### How to visualize your presentation offline?
+
+1. Use the function `xaringan::summon_remark()` to download the `remark.js` library in your computer.
+
+2. Add the downloaded file `libs/remark-latest.min.js` to the YAML, in the argument `chakra`.
+
+```
+output:
+  xaringan::moon_reader:
+      lib_dir: libs
+      chakra: libs/remark-latest.min.js
+```
+
+---
+
+## Style (.css)
+
+We can use css files to style our presentation.
+
+`xaringan` has a variety of themes that we can use.
+
+
+```r
+names(xaringan:::list_css())
+```
+
+```
+##  [1] "chocolate-fonts"  "chocolate"        "default-fonts"    "default"         
+##  [5] "duke-blue"        "fc-fonts"         "fc"               "hygge-duke"      
+##  [9] "hygge"            "ki-fonts"         "ki"               "kunoichi"        
+## [13] "lucy-fonts"       "lucy"             "metropolis-fonts" "metropolis"      
+## [17] "middlebury-fonts" "middlebury"       "nhsr-fonts"       "nhsr"            
+## [21] "ninjutsu"         "rladies-fonts"    "rladies"          "robot-fonts"     
+## [25] "robot"            "rutgers-fonts"    "rutgers"          "shinobi"         
+## [29] "tamu-fonts"       "tamu"             "uio-fonts"        "uio"             
+## [33] "uo-fonts"         "uo"               "uol-fonts"        "uol"             
+## [37] "useR-fonts"       "useR"
+```
+
+---
+
+To add the theme(s) to our presentation, we have to change the `css` argument of YAML metadata.
+
+```
+output:
+  xaringan::moon_reader:
+      lib_dir: libs
+      chakra: libs/remark-latest.min.js
+      css: ["duke-blue", "ki-fonts"]
+```
+
+Also, we can build our own `css` file or change one that already exists. After that, we can insert the custom.css in the YAML
+
+
+
+---
+
+
+#### [`xaringanExtra`](https://pkg.garrickadenbuie.com/xaringanExtra/#/)
+
+This package has additional functions for `xaringan`, such as broadcast, editable slides, logo, webcam. Take a look!
+
+
+#### Shortcuts
+
+In xaringan presentation, you can use .keyboard[H] or .keyboard[?] to see the shortcuts.
+
+#### Export to PDF
+
+You can use the function `chrome_print()` from the package `pagedown`.
+
+
+```r
+install.packages("pagedown")
+pagedown::chrome_print("slides.html")
+```
+
+
+
+---
+
+## References
+
+To develop your `jutsu`, I advise you to apply what you learned and to study the holy scrolls of `xaringan`:
+
+.pull-left[
+
+[xaringan Presentations](https://bookdown.org/yihui/rmarkdown/xaringan.html)
+
+[Presentation Ninja](https://slides.yihui.org/xaringan/#1)
+
+[xaringan Wiki](https://github.com/yihui/xaringan/wiki)
+
+[Kunoichi slides](https://emitanaka.org/ninja-theme/themes/kunoichi/kunoichi-theme-example.html#1)
+
+[xaringanthemer](https://pkg.garrickadenbuie.com/xaringanthemer/)
+
+[xaringanExtra](https://pkg.garrickadenbuie.com/xaringanExtra/#/)
+
+]
+
+.pull-right[
+
+&lt;img src="img/scroll.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+
+---
+
+
+&lt;img src="https://i.ytimg.com/vi/W-iE2FI6o14/maxresdefault.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+.center[
+
+# Thank you!
+
+✉️ diegogaldinof@gmail.com
+
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "slideNumberFormat": "%current%",
 "highlightStyle": "tango",
